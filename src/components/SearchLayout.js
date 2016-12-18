@@ -9,13 +9,7 @@ class SearchLayout extends React.Component {
     super(props)
     this.search = this.search.bind(this);
     this.qUpdate = this.qUpdate.bind(this);
-    this.fetchVideos = this.fetchVideos.bind(this);
-    this.state = {q: this.props.location.query.q || '', vids: []}
-  }
-
-  componentDidMount() {
-    if (this.props.location.query.q)
-    this.fetchVideos(this.props.location.query.q);
+    this.state = {q: '', vids: []}
   }
 
   qUpdate(e) {
@@ -24,16 +18,8 @@ class SearchLayout extends React.Component {
 
   search(e) {
     e.preventDefault();
-    this.fetchVideos(this.state.q);
-    this.props.router.push({
-      ...this.props.location,
-      query: {q: this.state.q}
-    });
-  }
 
-  fetchVideos(q) {
-
-    let url = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyCawc-PplCQMWvBPM8S9lF5ZmE3QsdAnxA&part=snippet&type=video&maxResults=25&q=${encodeURIComponent(q)}`
+    let url = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyCawc-PplCQMWvBPM8S9lF5ZmE3QsdAnxA&part=snippet&type=video&maxResults=25&q=${encodeURIComponent(this.state.q)}`
     fetch(url)
       .then((response) => {
         return response.json();
