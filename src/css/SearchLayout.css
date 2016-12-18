@@ -1,3 +1,18 @@
+.yt-form {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 25px 10px 0px;
+}
+
+.yt-results {
+  /*background-color: #f2e9dc;*/
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 10px;
+  /*margin: 5px;*/
+}
+
 .yt-item {
   background-color: #f2e9dc;
   padding: 15px 10px 0;

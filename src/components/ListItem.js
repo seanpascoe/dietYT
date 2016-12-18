@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router';
-import '../css/ListItem.css';
 
 export default (props) => {
   return (

@@ -3,6 +3,7 @@ import 'whatwg-fetch';
 import Form from './Form';
 import List from './List';
 import ListItem from './ListItem';
+import '../css/SearchLayout.css'
 
 class SearchLayout extends React.Component {
   constructor(props) {

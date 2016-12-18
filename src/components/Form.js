@@ -1,15 +1,8 @@
 import React from 'react';
 
 export default (props) => {
-  const styles = {
-    form: {
-      maxWidth: '500px',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      padding: "10px"}
-  }
   return (
-    <form style={styles.form} onSubmit={props.search}>
+    <form className="yt-form" onSubmit={props.search}>
       <div className="form-group form-group-lg">
         <div className="input-group">
           <input
@@ -17,6 +10,7 @@ export default (props) => {
             className="form-control"
             onChange={props.qUpdate}
             value={props.q || ''}
+            required
             placeholder="Search..."/>
           <span
             className="input-group-addon btn"
