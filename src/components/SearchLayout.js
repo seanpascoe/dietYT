@@ -3,9 +3,11 @@ import 'whatwg-fetch';
 import Form from './Form';
 import List from './List';
 import ListItem from './ListItem';
-import '../css/SearchLayout.css'
+import '../css/SearchLayout.css';
+import { observer, inject } from 'mobx-react';
 
-class SearchLayout extends React.Component {
+@inject('store') @observer
+export default class SearchLayout extends React.Component {
   constructor(props) {
     super(props)
     this.search = this.search.bind(this);
@@ -53,5 +55,3 @@ class SearchLayout extends React.Component {
     )
   }
 }
-
-export default SearchLayout;
