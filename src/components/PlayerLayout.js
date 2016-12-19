@@ -42,7 +42,7 @@ class PlayerLayout extends React.Component{
         <div className="container">
           <div className="row">
             <div className="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 yt-description">
-              {`Description: ${this.state.description}`}
+              <strong>Description:</strong> {this.state.description || 'none'}
             </div>
           </div>
         </div>
