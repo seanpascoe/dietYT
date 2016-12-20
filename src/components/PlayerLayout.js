@@ -9,7 +9,6 @@ class PlayerLayout extends React.Component{
   }
 
   componentDidMount() {
-    console.log(this.props.params.id)
     let url = `https://www.googleapis.com/youtube/v3/videos?key=AIzaSyCawc-PplCQMWvBPM8S9lF5ZmE3QsdAnxA&part=snippet&id=${this.props.params.id}`
 
     fetch(url)

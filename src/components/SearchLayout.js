@@ -12,7 +12,7 @@ export default class SearchLayout extends React.Component {
     super(props)
     this.search = this.search.bind(this);
     this.qUpdate = this.qUpdate.bind(this);
-    this.state = {q: '', vids: []}
+    this.state = {q: this.props.store.q || ''}
   }
 
   qUpdate(e) {
@@ -27,7 +27,8 @@ export default class SearchLayout extends React.Component {
       .then((response) => {
         return response.json();
       }).then((json) => {
-        this.setState({vids: json.items})
+        this.props.store.vids = json.items;
+        this.props.store.q = this.state.q;
       }).catch((ex) => {
         console.log('something went wrong', ex);
       })
@@ -35,7 +36,7 @@ export default class SearchLayout extends React.Component {
 
   render() {
 
-    let results = this.state.vids.map(vid => (
+    let results = this.props.store.vids.map(vid => (
       <ListItem
         key={vid.id.videoId}
         id={vid.id.videoId}

@@ -1,9 +1,10 @@
 import { observable } from 'mobx';
 
 class dietYTStore {
-  @observable vids = ['hey', 'whats', 'up'];
+  @observable vids = [];
+  @observable q = '';
 }
 
-let store = window.store = new dietYTStore
+let store = window.store = new dietYTStore();
 
 export default store
