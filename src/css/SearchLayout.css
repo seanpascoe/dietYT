@@ -18,6 +18,7 @@
   padding: 15px 10px 0;
   display: block;
   color: #333;
+  overflow: hidden;
 }
 
 .yt-item:hover {

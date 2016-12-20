@@ -31,8 +31,31 @@
 .yt-description {
   background-color: #f2e9dc;
   border-radius: 2px;
-  padding: 15px;
+  padding-top: 15px;
   margin-top: 5px;
-  margin-bottom: 10px;
-  /*margin: 5px;*/
+  margin-bottom: 100px;
+  font-size: 0.85em;
+}
+
+.yt-related {
+  background-color: #f2e9dc;
+  border-radius: 2px;
+  padding-top: 15px;
+  margin-top: 5px;
+  font-size: 0.85em;
+}
+
+.show {
+  border-top: 1px solid #a9a9a9;
+  text-align: center;
+  margin-top: 10px;
+  padding: 10px;
+  text-transform: uppercase;
+  font-size: 0.85em;
+  display: inline-block;
+}
+
+.show:hover {
+  font-weight: bold;
+  cursor: pointer;
 }

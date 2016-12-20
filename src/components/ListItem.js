@@ -10,7 +10,7 @@ export default (props) => {
         </div>
         <div className="col-xs-8">
           <h3 className="yt-title">{props.title}</h3>
-          <p className="hidden-xs">{props.description}</p>
+          <p className="hidden-xs">{props.description.slice(0,200)}</p>
         </div>
       </div>
       <div className="yt-divider"></div>
