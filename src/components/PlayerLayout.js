@@ -1,7 +1,9 @@
 import React from 'react';
 import YouTube from 'react-youtube';
-import List from './List';
+import { browserHistory, Link } from 'react-router';
 import ListItem from './ListItem';
+import Form from './Form';
+import logo from '../images/logo.png';
 import '../css/PlayerLayout.css';
 
 class PlayerLayout extends React.Component{
@@ -10,7 +12,15 @@ class PlayerLayout extends React.Component{
     this.fetchData = this.fetchData.bind(this);
     this.description = this.description.bind(this);
     this.toggleShowMore = this.toggleShowMore.bind(this);
-    this.state = {description: '', showMore: true, relatedVids: []}
+    this.search = this.search.bind(this);
+    this.qUpdate = this.qUpdate.bind(this);
+    this.state = {
+      description: '',
+      showMore: true,
+      relatedVids: [],
+      q: '',
+
+    }
   }
 
   componentDidMount() {
@@ -23,6 +33,19 @@ class PlayerLayout extends React.Component{
       this.fetchData();
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
+  }
+
+  qUpdate(e) {
+    this.setState({q: e.target.value})
+  }
+
+  search(e) {
+    e.preventDefault();
+
+    browserHistory.push({
+      pathname: '/',
+      query: { q: this.state.q }
+    })
   }
 
   fetchData() {
@@ -51,7 +74,7 @@ class PlayerLayout extends React.Component{
 
   opts = {
     playerVars: {
-      autoplay: 1
+      autoplay: 0
     }
   };
 
@@ -79,6 +102,14 @@ class PlayerLayout extends React.Component{
 
     return (
       <div>
+        <div className="player-header">
+          <div>
+            <Link to='/'><img src={logo} className="logo" alt="logo" /></Link>
+          </div>
+          <div>
+            <Form formClass="search" q={this.state.q} search={this.search} qUpdate={this.qUpdate}/>
+          </div>
+        </div>
         <div className="yt-video-wrapper">
           <YouTube
             videoId={this.props.params.id}
@@ -98,6 +129,9 @@ class PlayerLayout extends React.Component{
 
         <div className="container">
           <div className="row">
+            <div className="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 related-label">
+              Related Videos
+            </div>
             <div className="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 yt-related">
               {related}
             </div>

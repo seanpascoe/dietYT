@@ -2,7 +2,7 @@ import React from 'react';
 
 export default (props) => {
   return (
-    <form className="yt-form" onSubmit={props.search}>
+    <form className={props.formClass} onSubmit={props.search}>
       <div className="form-group form-group-lg">
         <div className="input-group">
           <input
