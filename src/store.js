@@ -1,7 +1,6 @@
 import { observable } from 'mobx';
 
 class dietYTStore {
-  @observable vids = [];
   @observable q = '';
 }
 

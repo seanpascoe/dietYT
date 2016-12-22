@@ -3,6 +3,7 @@ import YouTube from 'react-youtube';
 import { browserHistory, Link } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import ListItem from './ListItem';
+import Pagination from './Pagination';
 import Form from './Form';
 import logo from '../images/logo.png';
 import '../css/PlayerLayout.css';
@@ -20,7 +21,9 @@ class PlayerLayout extends React.Component{
       description: '',
       showMore: true,
       relatedVids: [],
-      q: ''
+      q: this.props.store.q || '',
+      nextPage: '',
+      prevPage: ''
     }
   }
 
@@ -49,7 +52,7 @@ class PlayerLayout extends React.Component{
     })
   }
 
-  fetchData() {
+  fetchData(token='') {
     let descriptionUrl = `https://www.googleapis.com/youtube/v3/videos?key=AIzaSyCawc-PplCQMWvBPM8S9lF5ZmE3QsdAnxA&part=snippet&id=${this.props.params.id}`
 
     fetch(descriptionUrl)
@@ -61,13 +64,14 @@ class PlayerLayout extends React.Component{
         console.log('something went wrong', ex);
       })
 
-    let relatedUrl = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyCawc-PplCQMWvBPM8S9lF5ZmE3QsdAnxA&part=snippet&type=video&maxResults=25&relatedToVideoId=${encodeURIComponent(this.props.params.id)}`
+    let relatedUrl = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyCawc-PplCQMWvBPM8S9lF5ZmE3QsdAnxA&part=snippet&type=video&maxResults=25&pageToken=${encodeURIComponent(token)}&relatedToVideoId=${encodeURIComponent(this.props.params.id)}`
 
     fetch(relatedUrl)
       .then((response) => {
         return response.json();
       }).then((json) => {
-        this.setState({relatedVids: json.items})
+        console.log(json);
+        this.setState({relatedVids: json.items, nextPage: json.nextPageToken, prevPage: json.prevPageToken});
       }).catch((ex) => {
         console.log('something went wrong', ex);
       })
@@ -116,7 +120,6 @@ class PlayerLayout extends React.Component{
             videoId={this.props.params.id}
             opts={this.opts}
             className="yt-video"
-            // onReady={this._onReady}
           />
         </div>
         <div className="container">
@@ -130,7 +133,7 @@ class PlayerLayout extends React.Component{
 
         <div className="container">
           <div className="row">
-            <div className="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 related-label">
+            <div id="resultsTop" className="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 related-label">
               Related Videos
             </div>
             <div className="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 yt-related">
@@ -138,6 +141,7 @@ class PlayerLayout extends React.Component{
             </div>
           </div>
         </div>
+        <Pagination nextPage={this.state.nextPage} prevPage={this.state.prevPage} vidsL={this.state.relatedVids.length} fetchVids={this.fetchData} scroll={500}/>
       </div>
     );
   }

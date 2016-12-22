@@ -3,6 +3,7 @@ import 'whatwg-fetch';
 import Form from './Form';
 import List from './List';
 import ListItem from './ListItem';
+import Pagination from './Pagination';
 import '../css/SearchLayout.css';
 import { observer, inject } from 'mobx-react';
 import { browserHistory, Link } from 'react-router';
@@ -15,9 +16,6 @@ export default class SearchLayout extends React.Component {
     this.search = this.search.bind(this);
     this.qUpdate = this.qUpdate.bind(this);
     this.fetchVids = this.fetchVids.bind(this);
-    this.getNext = this.getNext.bind(this);
-    this.getPrev = this.getPrev.bind(this);
-    // this.state = {q: this.props.store.q || ''}
     this.state = {q: '', vids: [], nextPage: '', prevPage: ''}
   }
 
@@ -35,13 +33,16 @@ export default class SearchLayout extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.store.q = this.props.location.query.q //mobx
+  }
+
   qUpdate(e) {
-    this.setState({q: e.target.value})
+    this.setState({q: e.target.value});
   }
 
   search(e) {
     e.preventDefault();
-
     browserHistory.push({
       pathname: '/',
       query: { q: this.state.q }
@@ -66,18 +67,18 @@ export default class SearchLayout extends React.Component {
       })
   }
 
-  getNext() {
-    this.fetchVids(this.state.nextPage);
-    document.body.scrollTop = document.documentElement.scrollTop = 0;
-  }
-
-  getPrev() {
-    if(!this.state.prevPage) {
-      return
-    }
-    this.fetchVids(this.state.prevPage);
-    document.body.scrollTop = document.documentElement.scrollTop = 0;
-  }
+  // getNext() {
+  //   this.fetchVids(this.state.nextPage);
+  //   document.body.scrollTop = document.documentElement.scrollTop = 0;
+  // }
+  //
+  // getPrev() {
+  //   if(!this.state.prevPage) {
+  //     return
+  //   }
+  //   this.fetchVids(this.state.prevPage);
+  //   document.body.scrollTop = document.documentElement.scrollTop = 0;
+  // }
 
   render() {
     let results = this.state.vids.map(vid => (
@@ -96,14 +97,11 @@ export default class SearchLayout extends React.Component {
           <Link to='/'><img src={logo} className="App-logo" alt="logo" /></Link>
         </div>
         <Form formClass='yt-form' q={this.state.q} search={this.search} qUpdate={this.qUpdate}/>
+        <div id="resultsTop"></div>
         <List>
           {results}
         </List>
-        <div className="pag-cont" style={{display: this.state.vids.length ? "block" : "none"}}>
-          <div className="vid-pag">
-            <span className={`btn btn-default btn-xs${this.state.prevPage ? '' : ' disabled'}`} onClick={this.getPrev}>Prev</span><span className="btn btn-default btn-xs" onClick={this.getNext}>Next</span>
-          </div>
-        </div>
+        <Pagination nextPage={this.state.nextPage} prevPage={this.state.prevPage} vidsL={this.state.vids.length} fetchVids={this.fetchVids} scroll={200}/>
       </div>
     )
   }
