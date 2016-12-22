@@ -59,26 +59,11 @@ export default class SearchLayout extends React.Component {
       .then((response) => {
         return response.json();
       }).then((json) => {
-        // this.props.store.vids = json.items;
-        // this.props.store.q = this.state.q;
         this.setState({vids: json.items, nextPage: json.nextPageToken, prevPage: json.prevPageToken});
       }).catch((ex) => {
         console.log('something went wrong', ex);
       })
   }
-
-  // getNext() {
-  //   this.fetchVids(this.state.nextPage);
-  //   document.body.scrollTop = document.documentElement.scrollTop = 0;
-  // }
-  //
-  // getPrev() {
-  //   if(!this.state.prevPage) {
-  //     return
-  //   }
-  //   this.fetchVids(this.state.prevPage);
-  //   document.body.scrollTop = document.documentElement.scrollTop = 0;
-  // }
 
   render() {
     let results = this.state.vids.map(vid => (
