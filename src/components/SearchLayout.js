@@ -29,8 +29,7 @@ export default class SearchLayout extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(prevProps.location.query.q !== this.props.location.query.q &&
-      this.props.location.query.q) {
+    if(prevProps.location.query.q !== this.props.location.query.q) {
       this.fetchVids();
       this.setState({q: this.props.location.query.q});
     }
@@ -50,6 +49,10 @@ export default class SearchLayout extends React.Component {
   }
 
   fetchVids(token='') {
+    if(!this.props.location.query.q) {
+      this.setState({vids: []});
+      return;
+    }
     let url = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyCawc-PplCQMWvBPM8S9lF5ZmE3QsdAnxA&part=snippet&type=video&maxResults=25&pageToken=${encodeURIComponent(token)}&q=${encodeURIComponent(this.props.location.query.q)}`
     fetch(url)
       .then((response) => {

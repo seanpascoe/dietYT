@@ -1,11 +1,13 @@
 import React from 'react';
 import YouTube from 'react-youtube';
 import { browserHistory, Link } from 'react-router';
+import { observer, inject } from 'mobx-react';
 import ListItem from './ListItem';
 import Form from './Form';
 import logo from '../images/logo.png';
 import '../css/PlayerLayout.css';
 
+@inject('store') @observer
 class PlayerLayout extends React.Component{
   constructor(props) {
     super(props)
@@ -18,8 +20,7 @@ class PlayerLayout extends React.Component{
       description: '',
       showMore: true,
       relatedVids: [],
-      q: '',
-
+      q: ''
     }
   }
 
