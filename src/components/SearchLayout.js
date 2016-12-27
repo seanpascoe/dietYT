@@ -54,7 +54,7 @@ export default class SearchLayout extends React.Component {
       this.setState({vids: []});
       return;
     }
-    let url = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyCawc-PplCQMWvBPM8S9lF5ZmE3QsdAnxA&part=snippet&type=video&maxResults=25&pageToken=${encodeURIComponent(token)}&q=${encodeURIComponent(this.props.location.query.q)}`
+    let url = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyDzgiofdX4gUw0B-qZiP1lmKavScxZ1zCQ&part=snippet&type=video&maxResults=25&pageToken=${encodeURIComponent(token)}&q=${encodeURIComponent(this.props.location.query.q)}`
     fetch(url)
       .then((response) => {
         return response.json();

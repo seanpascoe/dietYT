@@ -53,7 +53,7 @@ class PlayerLayout extends React.Component{
   }
 
   fetchData(token='') {
-    let descriptionUrl = `https://www.googleapis.com/youtube/v3/videos?key=AIzaSyCawc-PplCQMWvBPM8S9lF5ZmE3QsdAnxA&part=snippet&id=${this.props.params.id}`
+    let descriptionUrl = `https://www.googleapis.com/youtube/v3/videos?key=AIzaSyDzgiofdX4gUw0B-qZiP1lmKavScxZ1zCQ&part=snippet&id=${this.props.params.id}`
 
     fetch(descriptionUrl)
       .then((response) => {
@@ -64,7 +64,7 @@ class PlayerLayout extends React.Component{
         console.log('something went wrong', ex);
       })
 
-    let relatedUrl = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyCawc-PplCQMWvBPM8S9lF5ZmE3QsdAnxA&part=snippet&type=video&maxResults=25&pageToken=${encodeURIComponent(token)}&relatedToVideoId=${encodeURIComponent(this.props.params.id)}`
+    let relatedUrl = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyDzgiofdX4gUw0B-qZiP1lmKavScxZ1zCQ&part=snippet&type=video&maxResults=25&pageToken=${encodeURIComponent(token)}&relatedToVideoId=${encodeURIComponent(this.props.params.id)}`
 
     fetch(relatedUrl)
       .then((response) => {
