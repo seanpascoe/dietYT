@@ -62,8 +62,8 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
+    "start:server": "node server",
     "build": "node scripts/build.js",
-    "server": "node server",
     "test": "node scripts/test.js --env=jsdom"
   },
   "jest": {
