@@ -11,6 +11,7 @@ export default (props) => {
             onChange={props.qUpdate}
             value={props.q || ''}
             required
+            autoFocus
             placeholder="Search..."/>
           <span
             className="input-group-addon btn"
